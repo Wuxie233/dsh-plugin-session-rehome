@@ -1,0 +1,17 @@
+{
+  "name": "@wuxie/dsh-session-rehome",
+  "description": "move_agent_to_root: rehome the current conversation to an existing project directory",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@deepseek-ai/schemastery": "^3.18.1"
+  }
+}
