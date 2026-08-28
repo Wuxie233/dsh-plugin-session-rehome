@@ -1,6 +1,6 @@
 # AGENTS.md
 
-dsh 双半插件：`move_agent_to_root` over `session.rehome`，通用设置里可选询问 / 自动。
+dsh 双半插件：`move_agent_to_root` over Host `session.rehome`，通用设置里可选询问 / 自动。
 
 ## Architecture
 
@@ -8,8 +8,8 @@ dsh 双半插件：`move_agent_to_root` over `session.rehome`，通用设置里�
 - `lib/client.js` 浏览器半：General Settings → 移动工作区（询问 / 自动）。
 - `lib/logic.js` 纯函数：ask/auto 分支（确认离开、多匹配选择、唯一匹配改写）。
 - Deploy by copy (`install.sh`), never symlink.
-- Host needs `tools`, `agents`, `workspaceRegistry`, `systemPrompt`; uses optional `apiProxy`, `userQuestions`, `sandboxPolicy`, `settings`.
-- Browser half injects `slots`, `locale`, `connection`, `remote`, `settingsScope`.
+- Host needs `tools`, `agents`, `workspaceRegistry`, `systemPrompt`; uses optional `sessionController`, `userQuestions`, `settings`.
+- Browser half Cordis inject: `slots`, `locale`, `connection`, `remote`, `settingsScope`.
 
 ## Conventions
 
@@ -21,11 +21,13 @@ dsh 双半插件：`move_agent_to_root` over `session.rehome`，通用设置里�
 
 - Do not mkdir. Host `session.rehome` registers an existing directory.
 - Canonical No Repo path is refused as a target.
-- If `apiProxy` is missing, fall back to `workspaceRegistry.create` + `setSessionHome` + detach/attach.
+- Host `session.rehome` lives on `ctx.sessionController.rehome({ sessionId, path })` (`@deepseek-ai/dsh-api-session-controller`). The deleted `host-apiproxy` `ctx.apiProxy.sessions.rehome` envelope is gone; do not restore it.
+- If `sessionController` is missing (CLI/TUI), fall back to `workspaceRegistry.create` + `setSessionHome` + detach/attach. That live path refuses `header.origin === 'subagent'`.
 - Default mode is `ask` (historical confirmation). `auto` skips prompts and keeps the model's canonical path when several registered workspaces match; unique No Repo matches still remap onto the registered workspace path.
 - Package name must stay identical in three places: `package.json` `name`, `lib/client.js` `__ModuleLoader__.load({ id })`, and the `cordis.patch.yml` mount row `name`.
 - Do not symlink-deploy: Node ESM resolves the real path and then cannot find `@deepseek-ai/*` from the profile.
-- Browser `createSnapshotStore` is `@deepseek-ai/dsh-client-store` (platform seed). `@deepseek-ai/dsh-client-runtime/client` is no longer in the module table.
+- Browser `createSnapshotStore` is `@deepseek-ai/dsh-client-store` (PLATFORM_MODULES seed). `@deepseek-ai/dsh-client-runtime/client` is not in the module table.
+- `package.json` `dsh.client.inject` is informational package edges only. Match official General-settings rows (`dsh-client-ui-settings` + connection/locale/api-remotes). Do not list PLATFORM_MODULES (`dsh-client-store`, `dsh-client-ui-primitives`) or host-only `@deepseek-ai/dsh-settings`.
 
 ## Commands
 

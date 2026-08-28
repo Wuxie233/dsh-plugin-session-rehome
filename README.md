@@ -15,7 +15,7 @@ Cursor 对等的对话改挂：模型工具 `move_agent_to_root({ rootPath })` �
 | 自动 | 任意（非 No Repo 目标） | 模型给出的绝对路径 | 直接改挂；多匹配不弹窗 |
 | 任意 | 任意 | `$DSH_HOME/no-repo` | 拒绝 |
 
-需要 Host `session.rehome`（deepseek-harness `7e166f8` 起）。
+Web 组合走 Host `ctx.sessionController.rehome({ sessionId, path })`。没有 Session Controller 时，在线非 subagent 会话回退到 `workspaceRegistry.create` + `setSessionHome`。
 
 ## 安装 / 更新
 
