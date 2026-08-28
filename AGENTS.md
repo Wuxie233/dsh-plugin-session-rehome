@@ -25,6 +25,7 @@ dsh 双半插件：`move_agent_to_root` over `session.rehome`，通用设置里�
 - Default mode is `ask` (historical confirmation). `auto` skips prompts and keeps the model's canonical path when several registered workspaces match; unique No Repo matches still remap onto the registered workspace path.
 - Package name must stay identical in three places: `package.json` `name`, `lib/client.js` `__ModuleLoader__.load({ id })`, and the `cordis.patch.yml` mount row `name`.
 - Do not symlink-deploy: Node ESM resolves the real path and then cannot find `@deepseek-ai/*` from the profile.
+- Browser `createSnapshotStore` is `@deepseek-ai/dsh-client-store` (platform seed). `@deepseek-ai/dsh-client-runtime/client` is no longer in the module table.
 
 ## Commands
 
