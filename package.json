@@ -1,7 +1,7 @@
 {
   "name": "@wuxie/dsh-session-rehome",
   "description": "move_agent_to_root: rehome the current conversation to an existing project directory, with an ask/auto setting",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "type": "module",
   "main": "lib/index.js",
   "exports": {

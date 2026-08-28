@@ -15,7 +15,7 @@ Cursor 对等的对话改挂：模型工具 `move_agent_to_root({ rootPath })` �
 | 自动 | 任意（非 No Repo 目标） | 模型给出的绝对路径 | 直接改挂；多匹配不弹窗 |
 | 任意 | 任意 | `$DSH_HOME/no-repo` | 拒绝 |
 
-Web 组合走 Host `ctx.sessionController.rehome({ sessionId, path })`。没有 Session Controller 时，在线非 subagent 会话回退到 `workspaceRegistry.create` + `setSessionHome`。
+生产路径是在线回退：`workspaceRegistry.create` + `setSessionHome` + detach/attach（当前对话一定在线）。可选的 `ctx.apiProxy.sessions.rehome` 仅在组合仍提供该桩时使用，不是依赖。
 
 ## 安装 / 更新
 
