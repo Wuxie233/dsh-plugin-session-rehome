@@ -22,6 +22,7 @@ dsh 双半插件：`move_agent_to_root` over Host `session.rehome`，通用设�
 - Do not mkdir. Host `session.rehome` registers an existing directory.
 - Canonical No Repo path is refused as a target.
 - Production path is the official live fallback: `workspaceRegistry.create` + `setSessionHome` + detach/attach. `move_agent_to_root` always has a live agent-bound session, so that is sufficient. The live path refuses `header.origin === 'subagent'`.
+- DSH 0.1.2-alpha.5 (`b4a2a68`): `foldHome` must pass `session.snapshotEvents()` into `sessionWorkingDirectory`. The live `Session` no longer has `.events`; a raw Session argument only sees `header.cwd` and treats every rehome as still on the birth project.
 - Optional `ctx.get('apiProxy')?.sessions?.rehome` (rpcId/payload envelope) is kept for the official `rehomeSession` template and test stubs. host-apiproxy is gone; Web does not provide apiProxy. Do not require it, and do not call `sessionController.rehome` from this plugin.
 - Default mode is `ask` (historical confirmation). `auto` skips prompts and keeps the model's canonical path when several registered workspaces match; unique No Repo matches still remap onto the registered workspace path.
 - Package name must stay identical in three places: `package.json` `name`, `lib/client.js` `__ModuleLoader__.load({ id })`, and the `cordis.patch.yml` mount row `name`.
