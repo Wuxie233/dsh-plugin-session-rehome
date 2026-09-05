@@ -13,23 +13,10 @@
     },
     "./package.json": "./package.json"
   },
-  "dsh": {
-    "client": {
-      "inject": [
-        "@deepseek-ai/dsh-client-connection",
-        "@deepseek-ai/dsh-client-locale",
-        "@deepseek-ai/dsh-client-ui-settings",
-        "@deepseek-ai/dsh-api-remotes"
-      ],
-      "platform": "web"
-    }
-  },
   "license": "MIT",
-  "peerDependencies": {
-    "@deepseek-ai/dsh-home-paths": ">=0.1.0",
-    "@deepseek-ai/dsh-sandbox-policy": ">=0.1.0",
-    "@deepseek-ai/dsh-settings": ">=0.1.0",
-    "@deepseek-ai/dsh-tools": ">=0.1.0",
-    "@deepseek-ai/schemastery": "^3.18.1"
-  }
+  "peerDependencies": {},
+  "files": [
+    "lib/",
+    "dsh-plugin.json"
+  ]
 }
